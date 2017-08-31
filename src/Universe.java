@@ -58,7 +58,9 @@ public class Universe extends JFrame implements ChangeListener {
 
         final int MIN_WIDTH = upperPanel.getMinimumSize().width + 3 * BORDER_GIRTH;
         final int MIN_HEIGHT = upperPanel.getMinimumSize().height * 2 + 3 * BORDER_GIRTH + slider.getMinimumSize().height;
-        setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
+        final Dimension PREF_DIMENSION = new Dimension(MIN_WIDTH, MIN_HEIGHT);
+        setMinimumSize(PREF_DIMENSION);
+        setPreferredSize(PREF_DIMENSION);
 
         pack();
         setVisible(true);
