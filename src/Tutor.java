@@ -1,4 +1,7 @@
+import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 
 /** The Tutor Class shows the meaningful feedback based
  *      upon student progress within the steps.
@@ -7,30 +10,46 @@ import java.awt.*;
  */
 
 public class Tutor extends ItsPane {
+    private JEditorPane editorPane = new JEditorPane("text/html", "<HTML><h1>Tutor.java</h1></HTML>");
+
     public Tutor() {
-        setBackground(Color.GREEN);
+        JScrollPane scrollPane = new JScrollPane(editorPane);
+        add(scrollPane);
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        URL currentPage;
+
         switch(state) {
             case 0:
             default:
-                g.drawString("Tutor.java", 20, 20);
+
+                currentPage = this.getClass().getClassLoader().getResource("p1.html");
                 break;
             case 1:
-                g.drawString("Case 1", 20, 20);
+                currentPage = this.getClass().getClassLoader().getResource("p1.html");
                 break;
             case 2:
-                g.drawString("Case 2", 20, 20);
+                currentPage = this.getClass().getClassLoader().getResource("p2.html");
                 break;
             case 3:
-                g.drawString("Case 3", 20, 20);
+                currentPage = this.getClass().getClassLoader().getResource("p3.html");
                 break;
             case 4:
-                g.drawString("Case 4", 20, 20);
+                currentPage = this.getClass().getClassLoader().getResource("p4.html");
                 break;
         }
+
+        try {
+            editorPane.setPage(currentPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            g.drawString("Error parsing file", 0, 0);
+        }
     }
+
 }
