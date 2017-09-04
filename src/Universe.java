@@ -11,35 +11,19 @@ public class Universe extends JFrame implements ChangeListener {
     private EmptyPane emptyPane = new EmptyPane();
     private ItsPane[] panes = {tutor, companion, assessor, emptyPane};
 
+    private final int BORDER_GIRTH = 10;
+
     public Universe() {
-        final int BORDER_GIRTH = 10;
 
         setName("Universe");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.CYAN);
 
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.LINE_AXIS));
-        upperPanel.add(Box.createHorizontalGlue());
-        upperPanel.add(tutor);
-        upperPanel.add(Box.createHorizontalGlue());
-        upperPanel.add(Box.createRigidArea(new Dimension(BORDER_GIRTH, 1)));
-        upperPanel.add(Box.createHorizontalGlue());
-        upperPanel.add(companion);
-        upperPanel.add(Box.createHorizontalGlue());
-
+        JPanel upperPanel = createRow(tutor, companion);
         Border border = BorderFactory.createEmptyBorder(BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH);
         upperPanel.setBorder(border);
 
-        JPanel lowerPanel = new JPanel();
-        lowerPanel.setLayout(new BoxLayout(lowerPanel, BoxLayout.LINE_AXIS));
-        lowerPanel.add(Box.createHorizontalGlue());
-        lowerPanel.add(assessor);
-        lowerPanel.add(Box.createHorizontalGlue());
-        lowerPanel.add(Box.createRigidArea(new Dimension(BORDER_GIRTH, 1)));
-        lowerPanel.add(Box.createHorizontalGlue());
-        lowerPanel.add(emptyPane);
-        lowerPanel.add(Box.createHorizontalGlue());
+        JPanel lowerPanel = createRow(assessor, emptyPane);
         border = BorderFactory.createEmptyBorder(0, BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH);
         lowerPanel.setBorder(border);
 
@@ -69,6 +53,22 @@ public class Universe extends JFrame implements ChangeListener {
     public static void main(String[] args) {
         new Universe();
     }
+
+    private JPanel createRow(JPanel left, JPanel right) {
+
+        JPanel row = new JPanel();
+        row.setLayout(new BoxLayout(row, BoxLayout.LINE_AXIS));
+        row.add(Box.createHorizontalGlue());
+        row.add(left);
+        row.add(Box.createHorizontalGlue());
+        row.add(Box.createRigidArea(new Dimension(BORDER_GIRTH, 1)));
+        row.add(Box.createHorizontalGlue());
+        row.add(right);
+        row.add(Box.createHorizontalGlue());
+
+        return row;
+    }
+
 
     @Override
     public void stateChanged(ChangeEvent e) {
