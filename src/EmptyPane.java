@@ -12,4 +12,9 @@ public class EmptyPane extends ItsPane{
             default:
         }
     }
+
+    @Override
+    void updateComponent() {
+
+    }
 }

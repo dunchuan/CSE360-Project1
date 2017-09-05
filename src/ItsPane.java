@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class ItsPane extends JPanel {
-    int state = 0;
+    static int state = 0;
 
     public ItsPane() {
         final Dimension MIN_SIZE= new Dimension(400, 300);
@@ -15,7 +15,11 @@ public abstract class ItsPane extends JPanel {
 
     void changeState(int state) {
         this.state = state;
+        updateComponent();
         revalidate();
         repaint();
     };
+
+    abstract void updateComponent();
+
 }

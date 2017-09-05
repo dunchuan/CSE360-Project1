@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -10,25 +9,29 @@ import java.net.URL;
  */
 
 public class Tutor extends ItsPane {
-    private JEditorPane editorPane = new JEditorPane("text/html", "<HTML><h1>Tutor.java</h1></HTML>");
+    private JEditorPane editorPane = new JEditorPane();
+
 
     public Tutor() {
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         JScrollPane scrollPane = new JScrollPane(editorPane);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(getPreferredSize());
+        scrollPane.setMaximumSize(getMaximumSize());
+        scrollPane.setMinimumSize(getMinimumSize());
         add(scrollPane);
+        updateComponent();
     }
 
-
-
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    void updateComponent() {
         URL currentPage;
-
         switch(state) {
             case 0:
             default:
-
-                currentPage = this.getClass().getClassLoader().getResource("p1.html");
+                currentPage = this.getClass().getClassLoader().getResource("default.html");
                 break;
             case 1:
                 currentPage = this.getClass().getClassLoader().getResource("p1.html");
@@ -43,13 +46,12 @@ public class Tutor extends ItsPane {
                 currentPage = this.getClass().getClassLoader().getResource("p4.html");
                 break;
         }
-
         try {
             editorPane.setPage(currentPage);
+
         } catch (IOException e) {
+            editorPane.setText("<HTML><H1>Failure loading page for state: " + state + "</H1></HTML>");
             e.printStackTrace();
-            g.drawString("Error parsing file", 0, 0);
         }
     }
-
 }
