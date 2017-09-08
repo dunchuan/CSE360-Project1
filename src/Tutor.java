@@ -29,6 +29,7 @@ public class Tutor extends ItsPane {
     void updateComponent() {
         URL currentPage;
         switch(state) {
+
             case 0:
             default:
                 currentPage = this.getClass().getClassLoader().getResource("default.html");
