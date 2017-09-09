@@ -1,3 +1,5 @@
+package edu.asu.CSE360._04._03;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,7 @@ import java.net.URL;
 public class Companion extends ItsPane {
     private JLabel label = new JLabel("Companion.java");
     private Image image;
+    private JLabel failureLabel = new JLabel("Unable to retrieve image.");
 
     public Companion() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -30,23 +33,23 @@ public class Companion extends ItsPane {
                 add(label);
                 break;
             case 1:
-                imagePath = Companion.class.getClassLoader().getResource("happy.png");
+                imagePath = getClass().getResource("/happy.png");
                 break;
             case 2:
-                imagePath = Companion.class.getClassLoader().getResource("thinking.png");
+                imagePath = getClass().getResource("/thinking.png");
                 break;
             case 3:
-                imagePath = Companion.class.getClassLoader().getResource("worry.png");
+                imagePath = getClass().getResource("/worry.png");
                 break;
             case 4:
-                imagePath = Companion.class.getClassLoader().getResource("sad.png");
+                imagePath = getClass().getResource("/sad.png");
                 break;
         }
         if (imagePath != null) {
             try {
                 image = ImageIO.read(imagePath);
             } catch (IOException e) {
-                e.printStackTrace();
+                add(failureLabel);
             }
         }
     }
