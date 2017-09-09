@@ -15,12 +15,12 @@ public abstract class ItsPane extends JPanel {
     }
 
 
-    void changeState(int state) {
-        this.state = state;
+    void changeState(int newState) {
+        state = newState;
         updateComponent();
         revalidate();
         repaint();
-    };
+    }
 
     abstract void updateComponent();
 

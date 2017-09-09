@@ -7,85 +7,97 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-/** The Accessor Class Shows the questions and uses listeners to change the model
- *
- *
+/**
+ * The Accessor Class Shows the questions and uses listeners to change the model
  */
-public class Assessor  extends ItsPane implements ActionListener {
+public class Assessor extends ItsPane implements ActionListener {
 
     private String name = "Ian Mwangi";
 
-    private String options [] = {"Option 1","Option 2","Option 3","Option 4","Option 5"};
-    private JComboBox<String> combo= new JComboBox<>(options);
+    private String options[] = {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"};
+    private JComboBox<String> combo = new JComboBox<>(options);
 
 
-    private JTextField txtField = new JTextField("Type Here");
+    private JTextField txtField = new JTextField(30);
 
-    private JCheckBox check1= new JCheckBox("Option 1");
-    private JCheckBox check2= new JCheckBox("Option 2");
-    private JCheckBox check3= new JCheckBox("Option 3");
+    private JCheckBox check1 = new JCheckBox("Option 1");
+    private JCheckBox check2 = new JCheckBox("Option 2");
+    private JCheckBox check3 = new JCheckBox("Option 3");
 
-    private JButton b1=new JButton(" Option 1");
-    private JButton b2=new JButton(" Option 2");
-    private JButton b3=new JButton(" Option 3");
+    private JButton b1 = new JButton("Option 1");
+    private JButton b2 = new JButton("Option 2");
+    private JButton b3 = new JButton("Option 3");
 
     private JLabel questionLabel = new JLabel(name);
-    private JPanel centeredPane = new JPanel();
+
 
     public Assessor() {
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        centeredPane.setLayout(new BoxLayout(centeredPane, BoxLayout.Y_AXIS));
-        centeredPane.setBackground(Color.BLUE);
-        add(Box.createHorizontalGlue());
-        add(centeredPane);
-        add(Box.createHorizontalGlue());
-
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         txtField.setEditable(true);
-        txtField.setMaximumSize(new Dimension(getMaximumSize().width, getMaximumSize().height / 2));
+        questionLabel.setFont(new Font("Time New Roman",Font.PLAIN, 18));
 
         setBackground(Color.WHITE);
-        updateComponent();
 
+        updateComponent();
         addListeners();
     }
 
     @Override
     void updateComponent() {
-        centeredPane.removeAll();
+        removeAll();
+        JPanel footer = new JPanel();
+        footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
+        footer.setBackground(Color.WHITE);
+
+
         switch (state) {
             case 0:
             default:
-                centeredPane.add(questionLabel);
+                footer.add(Box.createVerticalGlue());
+                footer.add(questionLabel);
+                footer.add(Box.createVerticalGlue());
                 break;
             case 1:
                 createHeader("Menu");
-                centeredPane.add(combo);
+                footer.add(Box.createVerticalGlue());
+                footer.add(combo);
+                footer.add(Box.createVerticalGlue());
                 break;
             case 2:
                 createHeader("CheckBoxes");
-                centeredPane.add(check1);
-                centeredPane.add(check2);
-                centeredPane.add(check3);
+                footer.add(Box.createVerticalGlue());
+                footer.add(check1);
+                footer.add(check2);
+                footer.add(check3);
+                footer.add(Box.createVerticalGlue());
                 break;
             case 3:
                 createHeader("Buttons");
-                centeredPane.add(b1);
-                centeredPane.add(b2);
-                centeredPane.add(b3);
+                footer.add(Box.createVerticalGlue());
+                footer.add(b1);
+                footer.add(b2);
+                footer.add(b3);
+                footer.add(Box.createVerticalGlue());
                 break;
             case 4:
-                createHeader("Please describe why you selected your major.");
-                centeredPane.add(questionLabel);
-                centeredPane.add(txtField);
+                createHeader("What is your Major?");
+                footer.setLayout(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                footer.add(txtField, gbc);
                 break;
         }
-        centeredPane.add(Box.createVerticalGlue());
+        add(footer);
     }
 
     private void createHeader(String title) {
+        JPanel header = new JPanel();
+        header.setBackground(Color.WHITE);
+        header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
+        header.add(Box.createHorizontalGlue());
         questionLabel.setText(title);
-        centeredPane.add(questionLabel);
-        centeredPane.add(Box.createVerticalStrut(30));
+        header.add(questionLabel);
+        header.add(Box.createHorizontalGlue());
+        add(header);
     }
 
     private void addListeners() {
@@ -99,15 +111,15 @@ public class Assessor  extends ItsPane implements ActionListener {
         combo.addActionListener(this);
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
         String response = "You selected: ";
         Object source = e.getSource();
 
         switch (state) {
             case 1:
                 if (source instanceof JComboBox) {
-                    JComboBox box = (JComboBox<String>) source;
+                    JComboBox<String> box = (JComboBox<String>) source;
                     response += box.getSelectedItem();
                     JOptionPane.showMessageDialog(this, response);
                 }
@@ -129,7 +141,7 @@ public class Assessor  extends ItsPane implements ActionListener {
                 }
                 break;
             case 4:
-                if (source instanceof  JTextField) {
+                if (source instanceof JTextField) {
                     JTextField textField = (JTextField) source;
                     response = "You entered: " + textField.getText();
                     JOptionPane.showMessageDialog(this, response);
@@ -140,5 +152,5 @@ public class Assessor  extends ItsPane implements ActionListener {
             default:
         }
 
-	}
+    }
 }
