@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 /** The Accessor Class Shows the questions and uses listeners to change the model
- *
+ *@author Ian Mwangi
  *
  */
 public class Assessor  extends ItsPane implements ActionListener {
@@ -19,6 +19,7 @@ public class Assessor  extends ItsPane implements ActionListener {
 
 
     private JTextArea txtArea = new JTextArea("Type Here ");
+
 
     private JCheckBox check1= new JCheckBox("Option 1");
     private JCheckBox check2= new JCheckBox("Option 2");
@@ -39,6 +40,10 @@ public class Assessor  extends ItsPane implements ActionListener {
     void updateComponent() {
         removeAll();
         switch (state) {
+
+            /**
+             * Case 0:The default state is the introduction page
+             */
             case 0:
             default:
                 questionLabel.setText("Accessor.java");
@@ -48,6 +53,10 @@ public class Assessor  extends ItsPane implements ActionListener {
                 add(name);
 
                 break;
+
+            /**
+             * Case 1: Creates a menu option
+             */
             case 1:
                 questionLabel.setText("Menu");
                 add(questionLabel);
@@ -58,13 +67,17 @@ public class Assessor  extends ItsPane implements ActionListener {
                 combo.addActionListener(this);
 
                 break;
+
+            /**
+             * Case 2: Creates 3 checkboxes
+             */
             case 2:
                 questionLabel.setText("CheckBoxes");
                 add(questionLabel);
 
-                check1.setBounds(75,50,100,30);
-                check2.setBounds(75,75,100,30);
-                check3.setBounds(75,100,100,30);
+                check1.setBounds(75,50,100,20);
+                check2.setBounds(75,75,100,20);
+                check3.setBounds(75,100,100,20);
                 add(check1);
                 add(check2);
                 add(check3);
@@ -73,6 +86,10 @@ public class Assessor  extends ItsPane implements ActionListener {
                 check3.addActionListener(this);
 
                 break;
+
+            /**
+             * Case 3: Creates  3 option buttons
+             */
             case 3:
 
                 questionLabel.setText("Buttons");
@@ -93,11 +110,14 @@ public class Assessor  extends ItsPane implements ActionListener {
                 b3.addActionListener(this);
 
                 break;
+
+            /**
+             * Creates a Text Field
+             */
             case 4:
                 questionLabel.setText("Text field");
                 add(questionLabel);
-
-                txtArea.setBounds(75,50,250,150);
+                txtArea.setBounds(75,250,350,250);
                 add(txtArea);
                 txtArea.setEditable(true);
 
@@ -105,12 +125,50 @@ public class Assessor  extends ItsPane implements ActionListener {
         }
     }
 
+
+    /**
+     * This method displays a  Jframe resulting from the keyboard inputs
+     * on checkboxes and buttons selection.
+     * @param e is a parameter
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+        JFrame out = new JFrame("Simple Output");
+        JPanel hello =new JPanel();
+        JButton button = new JButton();
+
 		
-		if(check3.isSelected())
-		    System.out.println("Option 3 is correct");
-		else 
-			System.out.println("Option valid");
+		if(check3.isSelected() ||check2.isSelected() ||check1.isSelected()) {
+
+
+            JLabel result = new JLabel(" Check Box selected");
+            button.setText("Ok");
+            out.add(hello);
+            hello.add(result);
+            hello.add(button);
+            out.setSize(200, 100);
+            out.setLocationRelativeTo(null);
+            out.setVisible(true);
+            System.out.println("Checkbox selection");
+
+
+        }
+
+		else if (b1.isSelected() || b2.isSelected() || b3.isSelected())
+        {
+            JLabel resultbutton = new JLabel(" Radio Button  selected");
+            button.setText("Ok");
+            out.add(hello);
+            hello.add(resultbutton);
+            hello.add(button);
+            out.setSize(200, 100);
+            out.setLocationRelativeTo(null);
+            out.setVisible(true);
+
+            System.out.println("Button selection");
+
+        }
+
 	}
 }
