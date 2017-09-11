@@ -11,7 +11,7 @@ import java.net.URL;
  */
 
 public class Companion extends ItsPane {
-    private JLabel label = new JLabel("Companion.java");
+    private JLabel label = new JLabel("Jason Zellers");
     private Image image;
 
     public Companion() {
@@ -30,16 +30,16 @@ public class Companion extends ItsPane {
                 add(label);
                 break;
             case 1:
-                imagePath = Companion.class.getClassLoader().getResource("happy.png");
+                imagePath = Companion.class.getClassLoader().getResource("legoHappy.jpg");
                 break;
             case 2:
-                imagePath = Companion.class.getClassLoader().getResource("thinking.png");
+                imagePath = Companion.class.getClassLoader().getResource("legoThinking.jpg");
                 break;
             case 3:
-                imagePath = Companion.class.getClassLoader().getResource("worry.png");
+                imagePath = Companion.class.getClassLoader().getResource("legoWorried.png");
                 break;
             case 4:
-                imagePath = Companion.class.getClassLoader().getResource("sad.png");
+                imagePath = Companion.class.getClassLoader().getResource("legoSad.png");
                 break;
         }
         if (imagePath != null) {
