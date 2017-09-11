@@ -15,12 +15,12 @@ import java.net.URL;
 public class Companion extends ItsPane {
     private JLabel label = new JLabel("Companion.java");
     private Image image;
-    private JLabel failureLabel = new JLabel("Unable to retrieve image.");
 
     public Companion() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBackground(Color.WHITE);
-        updateComponent();
+        add(label);
+
     }
 
     @Override
@@ -30,7 +30,6 @@ public class Companion extends ItsPane {
         switch(state) {
             default:
             case 0:
-                add(label);
                 break;
             case 1:
                 imagePath = getClass().getResource("/happy.png");
@@ -45,19 +44,28 @@ public class Companion extends ItsPane {
                 imagePath = getClass().getResource("/sad.png");
                 break;
         }
+
         if (imagePath != null) {
             try {
                 image = ImageIO.read(imagePath);
             } catch (IOException e) {
-                add(failureLabel);
+                image = null;
+                add(label);
             }
+        } else {
+            label.setText("Unable to load image.");
+            image = null;
+            add(label);
         }
+
+
+
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-
     }
 }
