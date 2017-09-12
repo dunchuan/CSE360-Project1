@@ -4,8 +4,15 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 
-/* The Tutor Class shows the meaningful feedback based
- *      upon student progress within the steps.
+/**
+ * The Tutor class is a Jpane containing an JEditorPane inside a JScrollPane.
+ * The HTML file displayed is determined by the state value of it's superclass,
+ * ItsPane.
+ *
+ * Recitation Project 1
+ * Completion time: (estimation of hours spent on this program)
+ *
+ * @author Robert Wasinger @version 1.0
  */
 
 public class Tutor extends ItsPane {

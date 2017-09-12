@@ -8,8 +8,14 @@ import javax.swing.*;
 
 
 /**
- * The Accessor Class Shows the questions and uses listeners to change the model
+ * (basic description of program)
+ *
+ * Recitation Project 1
+ * Completion time: (estimation of hours spent on this program)
+ *
+ * @author Ian Mwangi , Robert Wasinger * @version 1.0
  */
+
 public class Assessor extends ItsPane implements ActionListener {
 
     private JCheckBox[] checkBoxes = new JCheckBox[3];

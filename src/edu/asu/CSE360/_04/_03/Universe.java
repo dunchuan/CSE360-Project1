@@ -6,6 +6,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
+/**
+ * The Universe Class uses the BoxLayout to align child horizontally and
+ * vertically with n rows of two panes.  The panes maintain their alignment as
+ * the panel is resized.
+ *
+ * Recitation Project 1
+ * Completion time: (estimation of hours spent on this program)
+ *
+ * @author Robert Wasinger * @version 1.0
+ */
+
 public class Universe extends JFrame implements ChangeListener {
     private Tutor tutor = new Tutor();
     private Companion companion = new Companion();
@@ -22,11 +33,13 @@ public class Universe extends JFrame implements ChangeListener {
         getContentPane().setBackground(Color.CYAN);
 
         JPanel upperPanel = createRow(tutor, companion);
-        Border border = BorderFactory.createEmptyBorder(BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH);
+        Border border = BorderFactory.createEmptyBorder(BORDER_GIRTH, BORDER_GIRTH,
+                BORDER_GIRTH, BORDER_GIRTH);
         upperPanel.setBorder(border);
 
         JPanel lowerPanel = createRow(assessor, emptyPane);
-        border = BorderFactory.createEmptyBorder(0, BORDER_GIRTH, BORDER_GIRTH, BORDER_GIRTH);
+        border = BorderFactory.createEmptyBorder(0, BORDER_GIRTH, BORDER_GIRTH,
+                BORDER_GIRTH);
         lowerPanel.setBorder(border);
 
         JPanel masterPanel = new JPanel();
@@ -43,7 +56,8 @@ public class Universe extends JFrame implements ChangeListener {
         setContentPane(masterPanel);
 
         final int MIN_WIDTH = upperPanel.getMinimumSize().width + 3 * BORDER_GIRTH;
-        final int MIN_HEIGHT = upperPanel.getMinimumSize().height * 2 + 3 * BORDER_GIRTH + slider.getMinimumSize().height;
+        final int MIN_HEIGHT = upperPanel.getMinimumSize().height * 2 + 3 * BORDER_GIRTH
+                + slider.getMinimumSize().height;
         final Dimension PREF_DIMENSION = new Dimension(MIN_WIDTH, MIN_HEIGHT);
         setMinimumSize(PREF_DIMENSION);
         setPreferredSize(PREF_DIMENSION);

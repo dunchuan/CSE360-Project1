@@ -6,10 +6,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
-/** The Companion class is a state machine reflecting the progress
- *      of the student.
+/**
+ * Companion Class displays an image based upon the state value of the superclass,
+ * ItsPane.
  *
+ * Recitation Project 1
+ * Completion time: (estimation of hours spent on this program)
  *
+ * @author Jason Zellers, Robert Wasinger * @version 1.0
  */
 
 public class Companion extends ItsPane {
@@ -44,6 +48,7 @@ public class Companion extends ItsPane {
                 imagePath = getClass().getResource("/sad.png");
                 break;
         }
+
 
         if (imagePath != null) {
             try {
