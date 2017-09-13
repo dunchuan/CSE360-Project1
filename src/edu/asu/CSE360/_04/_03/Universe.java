@@ -55,8 +55,10 @@ public class Universe extends JFrame implements ChangeListener {
         setContentPane(masterPanel);
 
         final int MIN_WIDTH = upperPanel.getMinimumSize().width + 3 * BORDER_GIRTH;
-        final int MIN_HEIGHT = upperPanel.getMinimumSize().height * 2 + 3 * BORDER_GIRTH
-                + slider.getMinimumSize().height;
+
+        final int MIN_HEIGHT = upperPanel.getMinimumSize().height * 2 +
+                3 * BORDER_GIRTH + slider.getMinimumSize().height;
+
         final Dimension PREF_DIMENSION = new Dimension(MIN_WIDTH, MIN_HEIGHT);
         setMinimumSize(PREF_DIMENSION);
         setPreferredSize(PREF_DIMENSION);
@@ -83,7 +85,6 @@ public class Universe extends JFrame implements ChangeListener {
 
         return row;
     }
-
 
     @Override
     public void stateChanged(ChangeEvent e) {

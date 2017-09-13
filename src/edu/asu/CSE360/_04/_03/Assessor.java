@@ -124,7 +124,8 @@ public class Assessor extends ItsPane implements ActionListener {
     }
 
     private JPanel buildPanel1() {
-        String options[] = {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"};
+        String options[] = {"Option 1", "Option 2", "Option 3",
+                "Option 4", "Option 5"};
 
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));

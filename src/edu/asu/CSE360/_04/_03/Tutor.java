@@ -24,8 +24,10 @@ public class Tutor extends ItsPane {
         editorPane.setEditable(false);
 
         JScrollPane scrollPane = new JScrollPane(editorPane);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(getPreferredSize());
         scrollPane.setMaximumSize(getMaximumSize());
         scrollPane.setMinimumSize(getMinimumSize());

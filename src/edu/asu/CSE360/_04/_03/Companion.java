@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Companion Class displays an image based upon the state value of the superclass,
- * ItsPane.
+ * Companion Class displays an image based upon the state value of
+ * the superclass, ItsPane.
  *
  * Recitation Project 1
  * Completion time: (estimation of hours spent on this program)
