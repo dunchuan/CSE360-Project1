@@ -30,7 +30,6 @@ public class Universe extends JFrame implements ChangeListener {
 
         setName("Universe");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setBackground(Color.CYAN);
 
         JPanel upperPanel = createRow(tutor, companion);
         Border border = BorderFactory.createEmptyBorder(BORDER_GIRTH, BORDER_GIRTH,

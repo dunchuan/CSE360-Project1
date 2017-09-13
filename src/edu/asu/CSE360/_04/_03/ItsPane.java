@@ -16,16 +16,27 @@ import java.awt.*;
 public abstract class ItsPane extends JPanel {
     static int state = 0;
 
+    private final Dimension MIN_SIZE= new Dimension(400, 300);
+    private final Dimension MAX_SIZE = new Dimension(800, 600);
 
     public ItsPane() {
-//        final Dimension MIN_SIZE= new Dimension(400, 300);
-//        final Dimension MAX_SIZE = new Dimension(800, 600);
-//        setMinimumSize(MIN_SIZE);
-//        setMaximumSize(MAX_SIZE);
-//        setPreferredSize(MAX_SIZE);
+
     }
 
+    @Override
+    public Dimension getMaximumSize() {
+       return MAX_SIZE;
+    }
 
+    @Override
+    public Dimension getMinimumSize() {
+       return MIN_SIZE;
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return MAX_SIZE;
+    }
 
     void changeState(int newState) {
         state = newState;
@@ -35,5 +46,4 @@ public abstract class ItsPane extends JPanel {
     }
 
     abstract void updateComponent();
-
 }

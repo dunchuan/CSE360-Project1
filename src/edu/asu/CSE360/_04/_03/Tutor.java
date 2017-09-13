@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * The Tutor class is a Jpane containing an JEditorPane inside a JScrollPane.
+ * The Tutor class is a ItsPane containing an JEditorPane inside a JScrollPane.
  * The HTML file displayed is determined by the state value of it's superclass,
  * ItsPane.
  *
