@@ -7,7 +7,7 @@ import java.awt.*;
  * non-zero value.
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 0.1 hours
  *
  * @author Robert Wasinger * @version 1.0
  */

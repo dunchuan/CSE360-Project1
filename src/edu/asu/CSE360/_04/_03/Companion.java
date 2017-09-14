@@ -11,7 +11,7 @@ import java.net.URL;
  * the superclass, ItsPane.
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 8.5 hours
  *
  * @author Jason Zellers, Robert Wasinger * @version 1.0
  */

@@ -11,7 +11,7 @@ import javax.swing.*;
  * (basic description of program)
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 12 hours
  *
  * @author Ian Mwangi , Robert Wasinger * @version 1.0
  */

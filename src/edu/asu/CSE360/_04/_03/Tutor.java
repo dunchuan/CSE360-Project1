@@ -10,7 +10,7 @@ import java.net.URL;
  * ItsPane.
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 2 hours
  *
  * @author Robert Wasinger @version 1.0
  */
@@ -47,16 +47,16 @@ public class Tutor extends ItsPane {
                 currentPage = getClass().getResource("/default.html");
                 break;
             case 1:
-                currentPage = getClass().getResource("/p1.html");
+                currentPage = getClass().getResource("/P1.html");
                 break;
             case 2:
-                currentPage = getClass().getResource("/p2.html");
+                currentPage = getClass().getResource("/P2.html");
                 break;
             case 3:
-                currentPage = getClass().getResource("/p3.html");
+                currentPage = getClass().getResource("/P3.html");
                 break;
             case 4:
-                currentPage = getClass().getResource("/p4.html");
+                currentPage = getClass().getResource("/P4.html");
                 break;
         }
         try {

@@ -12,7 +12,7 @@ import java.awt.*;
  * the panel is resized.
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 2 hours
  *
  * @author Robert Wasinger * @version 1.0
  */

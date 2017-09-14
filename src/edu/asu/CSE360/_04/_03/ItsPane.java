@@ -8,7 +8,7 @@ import java.awt.*;
  * (basic description of program)
  *
  * Recitation Project 1
- * Completion time: (estimation of hours spent on this program)
+ * Completion time: 0.25 hours
  *
  * @author Robert Wasinger * @version 1.0
  */
