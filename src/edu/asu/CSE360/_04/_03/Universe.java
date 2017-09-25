@@ -91,8 +91,10 @@ public class Universe extends JFrame implements ChangeListener {
         JSlider slider = (JSlider) e.getSource();
         int newState = slider.getValue();
 
-        for (ItsPane pane : panes) {
-            pane.changeState(newState);
+        if (newState != ItsPane.state) {
+            for (ItsPane pane : panes) {
+                pane.changeState(newState);
+            }
         }
 
     }
