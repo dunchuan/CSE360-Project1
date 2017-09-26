@@ -3,6 +3,7 @@ package edu.asu.CSE360._04._03;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ public class Companion extends ItsPane {
     private MostRecentQueue<AnimationFrame> frames = new MostRecentQueue<>(
             new AnimationFrame(0, 0, 0, 0, null));
 
+    private final int frameDelay = 20;
 
     public Companion() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -33,7 +35,7 @@ public class Companion extends ItsPane {
 
     @Override
     void updateComponent() {
-        resetImage();
+        resetFrames();
 
         Runnable animation = null;
 
@@ -48,25 +50,19 @@ public class Companion extends ItsPane {
                 animation = new AnimateHappy();
                 break;
             case 2:
-                resetImage();
+
                 imagePath = getClass().getResource("/thinking.png");
-                animation = null;
+                animation = new AnimateThinking();
                 break;
             case 3:
-                resetImage();
                 imagePath = getClass().getResource("/worry.png");
-                animation = null;
+                animation = new AnimateWorried();
                 break;
             case 4:
                 imagePath = getClass().getResource("/sad.png");
                 animation = new AnimateSad();
                 break;
         }
-
-        if (animation != null) {
-            new Thread(animation).start();
-        }
-
 
         if (imagePath != null) {
             try {
@@ -80,19 +76,37 @@ public class Companion extends ItsPane {
             baseImage = null;
             add(label);
         }
+
+        // ensures static images will load correctly
+        resetFrames();
+
+        if (animation != null) {
+            new Thread(animation).start();
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         AnimationFrame frame = frames.poll();
+
         Image image = frame.image == null ? baseImage : frame.image;
 
-        g.drawImage(image, frame.x, frame.y, frame.width,
-                frame.height, null);
+
+        if (frame.hasTransform()) {
+            Graphics2D g2d = (Graphics2D) g;
+            image = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST);
+
+            // Graphics2D will use the raw image size unless it's scaled
+            g2d.drawImage(image, frame.transform, null);
+        }
+        else {
+            g.drawImage(image, frame.x, frame.y, frame.width,
+                    frame.height, null);
+        }
     }
 
-    private void resetImage() {
+    private void resetFrames() {
         frames.clear(new AnimationFrame(0, 0, getWidth(), getHeight(),
                 baseImage));
         repaint();
@@ -108,11 +122,10 @@ public class Companion extends ItsPane {
             int initialState = state;
             int speed = 5;
             int frameCount = 30;
-            int frameDelay = 10;
 
             LinkedList<AnimationFrame> happyFrames = new LinkedList<>();
 
-            resetImage();
+            resetFrames();
 
             int frameWidth = getWidth();
             int frameHeight = getHeight();
@@ -170,22 +183,24 @@ public class Companion extends ItsPane {
             int initialState = state;
             int speed = 5;
             int frameCount = 0;
-            int frameDelay = 10;
+            LinkedList<AnimationFrame> sadFrames = new LinkedList<>();
 
-            resetImage();
+            resetFrames();
             int imageHeight = frames.getTail().height;
 
             AnimationFrame latestFrame = new AnimationFrame(0, 0 - imageHeight,
                     getWidth(), getHeight());
-            frames.add(latestFrame);
+            sadFrames.add(latestFrame);
 
-            //45 pixels is bottom whitespace on current image
+            //45 pixels consumes some bottom whitespace on current image
             while (latestFrame.y <= 45) {
                 int prevY= latestFrame.y;
                 latestFrame = new AnimationFrame(0, prevY + speed, latestFrame.width, latestFrame.height);
-                frames.add(latestFrame);
+                sadFrames.add(latestFrame);
                 frameCount++;
             }
+
+            frames.add(sadFrames);
 
             for (int i = 0; i < frameCount; i++) {
                 if (initialState != ItsPane.state)
@@ -204,43 +219,112 @@ public class Companion extends ItsPane {
             System.out.println("Thread exits: " + initialState + " " + state);
         }
     }
-//
-//    private class AnimateWorried implements Runnable {
-//        @Override
-//        public void run() {
-//
-//        }
-//    }
-//
-//    private class AnimateThinking implements Runnable {
-//        @Override
-//        public void run() {
-//            System.out.println("Thread starts: " + state);
-//            int initialState = state;
-//            int frames = 100;
-//            int frameDelay= 500;
-//            final Graphics2D g2d = (Graphics2D) getGraphics();
-//            while (initialState == state) {
-//                for (int i = 0; i < frames; i++) {
-//                    if (initialState != state)
-//                        break;
-//                    SwingUtilities.invokeLater(() -> {
-//                        g2d.setBackground(Color.WHITE);
-//                        g2d.clearRect(0, 0, getWidth(), getHeight());
-//
-//                        g2d.rotate(Math.PI / 20, imageWidth / 2, imageHeight / 2);
-//                        g2d.drawRenderedImage(image, null);
-//                    });
-//
-//
-//
-//                    try {
-//                        Thread.sleep(frameDelay);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-////    }
+
+    private class AnimateWorried implements Runnable {
+        int initialState = state;
+
+        final int rightBound = 25;
+        final int leftBound = 25;
+        final int speed = 4;
+
+        LinkedList<AnimationFrame> worriedFrames = new LinkedList<>();
+
+        int imageHeight = frames.getTail().height;
+        int imageWidth = frames.getTail().width;
+        AnimationFrame worriedFrame;
+
+        @Override
+        public void run() {
+            System.out.println("Thread Starts: " + state);
+            resetFrames();
+
+
+            for (int i = 0; i > -leftBound; i--) {
+                buildFrame(i);
+            }
+
+            for (int i = -leftBound; i < rightBound; i++) {
+                buildFrame(i);
+            }
+
+            for (int i = rightBound; i > 0; i--) {
+                buildFrame(i);
+            }
+
+            frames.cycle(worriedFrames);
+
+            while (initialState == state) {
+                for (int i = 0; i < worriedFrames.size(); i++) {
+                    if (initialState != state)
+                        break;
+
+                    repaint();
+
+                    try {
+                        Thread.sleep(frameDelay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+        private void buildFrame(int i) {
+            worriedFrame = new AnimationFrame(0, 0, imageWidth, imageHeight);
+
+            AffineTransform transform = new AffineTransform();
+            transform.translate(speed * i, 0);
+
+            worriedFrame.setTransform(transform);
+            worriedFrames.add(worriedFrame);
+        }
+    }
+
+    private class AnimateThinking implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Thread starts: " + state);
+            resetFrames();
+
+            int initialState = state;
+            int frameCount = 50;
+
+
+            LinkedList<AnimationFrame> thinkingFrames = new LinkedList<>();
+
+            int imageHeight = frames.getTail().height;
+            int imageWidth = frames.getTail().width;
+
+            AnimationFrame thinkFrame;
+
+            for (int i = 1; i < frameCount + 1; i++) {
+                thinkFrame = new AnimationFrame(0, 0, imageWidth, imageHeight);
+
+                AffineTransform transform = new AffineTransform();
+                transform.rotate(i * 2 * Math.PI /frameCount, imageWidth / 2, imageHeight / 2);
+
+                thinkFrame.setTransform(transform);
+                thinkingFrames.add(thinkFrame);
+            }
+
+            frames.cycle(thinkingFrames);
+
+            while (initialState == state) {
+                    repaint();
+
+                    try {
+                        Thread.sleep(frameDelay * 2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
 }

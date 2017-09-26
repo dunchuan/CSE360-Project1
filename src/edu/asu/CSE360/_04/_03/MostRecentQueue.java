@@ -41,6 +41,11 @@ public class MostRecentQueue<E> {
         isCycling = false;
     }
 
+    public synchronized void add (List<E> list) {
+        linkedList.addAll(list);
+        isCycling = false;
+    }
+
 
     public synchronized void clear() {
         linkedList.clear();
@@ -58,6 +63,5 @@ public class MostRecentQueue<E> {
         } catch (NoSuchElementException e) {
             return mostRecent;
         }
-
     }
 }
