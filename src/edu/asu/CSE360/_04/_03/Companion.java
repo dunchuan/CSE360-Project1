@@ -154,7 +154,8 @@ public class Companion extends ItsPane implements ComponentListener {
             int frameY = 0;
 
             for (int i = 0; i < frameCount; i++) {
-                happyFrames.add(new AnimationFrame(frameX, frameY, frameWidth, frameHeight));
+                happyFrames.add(new AnimationFrame(frameX, frameY, frameWidth,
+                        frameHeight));
 
                 frameWidth += speed;
                 frameHeight += speed;
@@ -167,7 +168,8 @@ public class Companion extends ItsPane implements ComponentListener {
             speed *= -1;
 
             for (int i = 0; i < frameCount; i++) {
-                happyFrames.add(new AnimationFrame(frameX, frameY, frameWidth, frameHeight));
+                happyFrames.add(new AnimationFrame(frameX, frameY, frameWidth,
+                        frameHeight));
 
                 frameWidth += speed;
                 frameHeight += speed;
@@ -212,7 +214,8 @@ public class Companion extends ItsPane implements ComponentListener {
             //45 pixels consumes some bottom whitespace on current image
             while (latestFrame.y <= 45) {
                 int prevY= latestFrame.y;
-                latestFrame = new AnimationFrame(0, prevY + speed, latestFrame.width, latestFrame.height);
+                latestFrame = new AnimationFrame(0, prevY + speed,
+                        latestFrame.width, latestFrame.height);
                 sadFrames.add(latestFrame);
                 frameCount++;
             }
@@ -315,7 +318,8 @@ public class Companion extends ItsPane implements ComponentListener {
                 thinkFrame = new AnimationFrame(0, 0, imageWidth, imageHeight);
 
                 AffineTransform transform = new AffineTransform();
-                transform.rotate(i * 2 * Math.PI /frameCount, imageWidth / 2, imageHeight / 2);
+                transform.rotate(i * 2 * Math.PI /frameCount,
+                        imageWidth / 2, imageHeight / 2);
 
                 thinkFrame.setTransform(transform);
                 thinkingFrames.add(thinkFrame);
