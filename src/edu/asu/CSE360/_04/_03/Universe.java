@@ -11,10 +11,10 @@ import java.awt.*;
  * vertically with n rows of two panes.  The panes maintain their alignment as
  * the panel is resized.
  *
- * Recitation Project 1
+ * Recitation Project 2
  * Completion time: 2 hours
  *
- * @author Robert Wasinger * @version 1.0
+ * @author Robert Wasinger * @version 1.1
  */
 
 public class Universe extends JFrame implements ChangeListener {
@@ -86,6 +86,8 @@ public class Universe extends JFrame implements ChangeListener {
         return row;
     }
 
+    // This method needed to be updated because multiple events were being
+    // sent by the slider
     @Override
     public void stateChanged(ChangeEvent e) {
         JSlider slider = (JSlider) e.getSource();

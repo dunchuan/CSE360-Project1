@@ -3,13 +3,22 @@ package edu.asu.CSE360._04._03;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+/**
+ * MostRecentQueue Class is a Queue that never runs out.  When the last item
+ * of the queue is consumed, additional polling will show the last item
+ * taken from the queue.  It also allows for "cycling" where items removed
+ * are added back into the queue.
+ *
+ * Recitation Project 2
+ * Completion time: 0.5 hours
+ *
+ * @author Robert Wasinger * @version 1.0
+ */
 public class MostRecentQueue<E> {
     private E mostRecent;
 
     private LinkedList<E> linkedList = new LinkedList<>();
 
-    private int cycleIndex;
     private boolean isCycling;
 
     public MostRecentQueue(E mostRecent) {

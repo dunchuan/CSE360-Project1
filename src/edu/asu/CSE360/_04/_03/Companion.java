@@ -12,10 +12,10 @@ import java.util.LinkedList;
  * Companion Class displays an image based upon the state value of
  * the superclass, ItsPane.
  *
- * Recitation Project 1
- * Completion time: 8.5 hours
+ * Recitation Project 2
+ * Completion time: 9 hours
  *
- * @author Jason Zellers, Robert Wasinger * @version 1.0
+ * @author Jason Zellers, Robert Wasinger * @version 2.0
  */
 
 public class Companion extends ItsPane {
@@ -95,9 +95,9 @@ public class Companion extends ItsPane {
 
         if (frame.hasTransform()) {
             Graphics2D g2d = (Graphics2D) g;
+            // Graphics2D will use the raw image size unless it's scaled
             image = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST);
 
-            // Graphics2D will use the raw image size unless it's scaled
             g2d.drawImage(image, frame.transform, null);
         }
         else {
@@ -111,8 +111,6 @@ public class Companion extends ItsPane {
                 baseImage));
         repaint();
     }
-
-
 
     private class AnimateHappy implements Runnable {
 
@@ -238,17 +236,16 @@ public class Companion extends ItsPane {
             System.out.println("Thread Starts: " + state);
             resetFrames();
 
-
             for (int i = 0; i > -leftBound; i--) {
-                buildFrame(i);
+                buildWoriedFrame(i);
             }
 
             for (int i = -leftBound; i < rightBound; i++) {
-                buildFrame(i);
+                buildWoriedFrame(i);
             }
 
             for (int i = rightBound; i > 0; i--) {
-                buildFrame(i);
+                buildWoriedFrame(i);
             }
 
             frames.cycle(worriedFrames);
@@ -273,10 +270,9 @@ public class Companion extends ItsPane {
                 }
 
             }
-
         }
 
-        private void buildFrame(int i) {
+        private void buildWoriedFrame(int i) {
             worriedFrame = new AnimationFrame(0, 0, imageWidth, imageHeight);
 
             AffineTransform transform = new AffineTransform();
@@ -295,7 +291,6 @@ public class Companion extends ItsPane {
 
             int initialState = state;
             int frameCount = 50;
-
 
             LinkedList<AnimationFrame> thinkingFrames = new LinkedList<>();
 

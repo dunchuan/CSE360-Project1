@@ -2,7 +2,16 @@ package edu.asu.CSE360._04._03;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-
+/**
+ * AnimationFrame is an object representing a single frame for the
+ * draw thread to render.  An image and/or Transformation may optionally be
+ * included.
+ *
+ * Recitation Project 2
+ * Completion time: 1 hour
+ *
+ * @author Robert Wasinger * @version 1.1
+ */
 public class AnimationFrame {
     public int x;
     public int y;
