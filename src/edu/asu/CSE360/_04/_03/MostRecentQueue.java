@@ -42,7 +42,6 @@ public class MostRecentQueue<E> {
             }
 
             return linkedList.poll();
-
     }
 
     public synchronized void add(E e) {
@@ -54,7 +53,6 @@ public class MostRecentQueue<E> {
         linkedList.addAll(list);
         isCycling = false;
     }
-
 
     public synchronized void clear() {
         linkedList.clear();

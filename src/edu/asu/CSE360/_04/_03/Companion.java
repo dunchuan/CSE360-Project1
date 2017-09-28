@@ -3,6 +3,8 @@ package edu.asu.CSE360._04._03;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +20,7 @@ import java.util.LinkedList;
  * @author Jason Zellers, Robert Wasinger * @version 2.0
  */
 
-public class Companion extends ItsPane {
+public class Companion extends ItsPane implements ComponentListener {
     private JLabel label = new JLabel("Jason Zellers");
     private Image baseImage;
 
@@ -27,15 +29,19 @@ public class Companion extends ItsPane {
 
     private final int frameDelay = 20;
 
+    private Thread animationThread = null;
+
+
     public Companion() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBackground(Color.WHITE);
+        addComponentListener(this);
         add(label);
     }
 
     @Override
     void updateComponent() {
-        resetFrames();
+        animationThread = null;
 
         Runnable animation = null;
 
@@ -81,7 +87,8 @@ public class Companion extends ItsPane {
         resetFrames();
 
         if (animation != null) {
-            new Thread(animation).start();
+            animationThread = new Thread(animation);
+            animationThread.start();
         }
     }
 
@@ -91,7 +98,6 @@ public class Companion extends ItsPane {
         AnimationFrame frame = frames.poll();
 
         Image image = frame.image == null ? baseImage : frame.image;
-
 
         if (frame.hasTransform()) {
             Graphics2D g2d = (Graphics2D) g;
@@ -112,21 +118,38 @@ public class Companion extends ItsPane {
         repaint();
     }
 
+    @Override
+    public void componentResized(ComponentEvent e) {
+        updateComponent();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
+
     private class AnimateHappy implements Runnable {
 
         @Override
         public void run() {
-            System.out.println("Thread starts: " + state);
-            int initialState = state;
+
             int speed = 5;
             int frameCount = 30;
 
             LinkedList<AnimationFrame> happyFrames = new LinkedList<>();
 
-            resetFrames();
-
-            int frameWidth = getWidth();
-            int frameHeight = getHeight();
+            int frameWidth = frames.getTail().width;
+            int frameHeight = frames.getTail().height;
             int frameX = 0;
             int frameY = 0;
 
@@ -157,8 +180,8 @@ public class Companion extends ItsPane {
 
             frames.cycle(happyFrames);
 
-            while (initialState == ItsPane.state) {
-                if (initialState != ItsPane.state)
+            while (animationThread == Thread.currentThread()) {
+                if (animationThread != Thread.currentThread())
                     break;
 
                     repaint();
@@ -169,25 +192,21 @@ public class Companion extends ItsPane {
                         e.printStackTrace();
                     }
             }
-            System.out.println("Thread exits: " + initialState + " " + state);
         }
     }
 
     private class AnimateSad implements Runnable {
         @Override
         public void run() {
-
-            System.out.println("Thread starts: " + state);
-            int initialState = state;
             int speed = 5;
             int frameCount = 0;
             LinkedList<AnimationFrame> sadFrames = new LinkedList<>();
 
-            resetFrames();
             int imageHeight = frames.getTail().height;
+            int imageWidth = frames.getTail().width;
 
             AnimationFrame latestFrame = new AnimationFrame(0, 0 - imageHeight,
-                    getWidth(), getHeight());
+                    imageWidth, imageHeight);
             sadFrames.add(latestFrame);
 
             //45 pixels consumes some bottom whitespace on current image
@@ -201,7 +220,7 @@ public class Companion extends ItsPane {
             frames.add(sadFrames);
 
             for (int i = 0; i < frameCount; i++) {
-                if (initialState != ItsPane.state)
+                if (animationThread != Thread.currentThread())
                     break;
 
                 repaint();
@@ -213,13 +232,10 @@ public class Companion extends ItsPane {
                 }
 
             }
-
-            System.out.println("Thread exits: " + initialState + " " + state);
         }
     }
 
     private class AnimateWorried implements Runnable {
-        int initialState = state;
 
         final int rightBound = 25;
         final int leftBound = 25;
@@ -227,32 +243,31 @@ public class Companion extends ItsPane {
 
         LinkedList<AnimationFrame> worriedFrames = new LinkedList<>();
 
+
         int imageHeight = frames.getTail().height;
         int imageWidth = frames.getTail().width;
         AnimationFrame worriedFrame;
 
         @Override
         public void run() {
-            System.out.println("Thread Starts: " + state);
-            resetFrames();
 
             for (int i = 0; i > -leftBound; i--) {
-                buildWoriedFrame(i);
+                buildWorriedFrame(i);
             }
 
             for (int i = -leftBound; i < rightBound; i++) {
-                buildWoriedFrame(i);
+                buildWorriedFrame(i);
             }
 
             for (int i = rightBound; i > 0; i--) {
-                buildWoriedFrame(i);
+                buildWorriedFrame(i);
             }
 
             frames.cycle(worriedFrames);
 
-            while (initialState == state) {
+            while (animationThread == Thread.currentThread()) {
                 for (int i = 0; i < worriedFrames.size(); i++) {
-                    if (initialState != state)
+                    if (animationThread != Thread.currentThread())
                         break;
 
                     repaint();
@@ -272,7 +287,7 @@ public class Companion extends ItsPane {
             }
         }
 
-        private void buildWoriedFrame(int i) {
+        private void buildWorriedFrame(int i) {
             worriedFrame = new AnimationFrame(0, 0, imageWidth, imageHeight);
 
             AffineTransform transform = new AffineTransform();
@@ -286,10 +301,7 @@ public class Companion extends ItsPane {
     private class AnimateThinking implements Runnable {
         @Override
         public void run() {
-            System.out.println("Thread starts: " + state);
-            resetFrames();
 
-            int initialState = state;
             int frameCount = 50;
 
             LinkedList<AnimationFrame> thinkingFrames = new LinkedList<>();
@@ -311,7 +323,7 @@ public class Companion extends ItsPane {
 
             frames.cycle(thinkingFrames);
 
-            while (initialState == state) {
+            while (animationThread == Thread.currentThread()) {
                     repaint();
 
                     try {

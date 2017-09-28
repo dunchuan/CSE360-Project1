@@ -13,7 +13,7 @@ import javax.swing.*;
  * Recitation Project 1
  * Completion time: 12 hours
  *
- * @author Ian Mwangi , Robert Wasinger * @version 1.0
+ * @author Ian Mwangi , Robert Wasinger * @version 1.1
  */
 
 public class Assessor extends ItsPane implements ActionListener {
@@ -43,7 +43,7 @@ public class Assessor extends ItsPane implements ActionListener {
 
     }
 
-    private JPanel createHeader(JPanel panel, String title) {
+    private JPanel createHeader(String title) {
         JPanel header = new JPanel();
         header.setBackground(Color.WHITE);
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
@@ -117,7 +117,7 @@ public class Assessor extends ItsPane implements ActionListener {
         panel0.setLayout(new BoxLayout(panel0, BoxLayout.PAGE_AXIS));
         panel0.setBackground(Color.WHITE);
         panel0.add(Box.createVerticalGlue());
-        panel0.add(createHeader(panel0, "Ian Mwangi"));
+        panel0.add(createHeader("Ian Mwangi"));
         panel0.add(Box.createVerticalGlue());
 
         return panel0;
@@ -131,7 +131,7 @@ public class Assessor extends ItsPane implements ActionListener {
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
         panel1.setBackground(Color.WHITE);
 
-        JPanel header = createHeader(panel1,"Menu");
+        JPanel header = createHeader("Menu");
         panel1.add(header);
         panel1.add(Box.createVerticalGlue());
         JComboBox<String> combo = new JComboBox<>(options);
@@ -148,7 +148,7 @@ public class Assessor extends ItsPane implements ActionListener {
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.PAGE_AXIS));
         panel2.setBackground(Color.WHITE);
 
-        JPanel header = createHeader(panel2, "CheckBoxes");
+        JPanel header = createHeader("CheckBoxes");
         panel2.add(header);
 
         JCheckBox check1 = new JCheckBox("Option 1");
@@ -177,7 +177,7 @@ public class Assessor extends ItsPane implements ActionListener {
         panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
         panel3.setBackground(Color.WHITE);
 
-        JPanel header = createHeader(panel3, "Buttons");
+        JPanel header = createHeader("Buttons");
         panel3.add(header);
 
         JPanel horizCenter = new JPanel();
@@ -213,7 +213,7 @@ public class Assessor extends ItsPane implements ActionListener {
         panel4.setLayout(new BorderLayout());
         panel4.setBackground(Color.WHITE);
 
-        JPanel header = createHeader(panel4, "What is your Major?");
+        JPanel header = createHeader("What is your Major?");
         panel4.add(header, BorderLayout.NORTH);
 
 

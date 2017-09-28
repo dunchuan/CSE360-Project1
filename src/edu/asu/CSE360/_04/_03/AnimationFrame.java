@@ -10,7 +10,7 @@ import java.awt.geom.AffineTransform;
  * Recitation Project 2
  * Completion time: 1 hour
  *
- * @author Robert Wasinger * @version 1.1
+ * @author Robert Wasinger * @version 1.0
  */
 public class AnimationFrame {
     public int x;
