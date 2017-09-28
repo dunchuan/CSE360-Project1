@@ -246,7 +246,6 @@ public class Companion extends ItsPane implements ComponentListener {
 
         LinkedList<AnimationFrame> worriedFrames = new LinkedList<>();
 
-
         int imageHeight = frames.getTail().height;
         int imageWidth = frames.getTail().width;
         AnimationFrame worriedFrame;
