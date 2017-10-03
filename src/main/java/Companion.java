@@ -1,4 +1,3 @@
-package edu.asu.CSE360._04._03;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -75,10 +74,10 @@ public class Companion extends ItsPane implements ComponentListener {
                 baseImage = ImageIO.read(imagePath);
             } catch (IOException e) {
                 baseImage = null;
+                label.setText("Unable to load image.");
                 add(label);
             }
         } else {
-            label.setText("Unable to load image.");
             baseImage = null;
             add(label);
         }
@@ -245,7 +244,6 @@ public class Companion extends ItsPane implements ComponentListener {
         final int speed = 4;
 
         LinkedList<AnimationFrame> worriedFrames = new LinkedList<>();
-
 
         int imageHeight = frames.getTail().height;
         int imageWidth = frames.getTail().width;

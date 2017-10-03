@@ -1,5 +1,3 @@
-package edu.asu.CSE360._04._03;
-
 import javax.swing.*;
 import java.awt.*;
 
