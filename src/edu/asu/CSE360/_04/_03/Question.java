@@ -113,6 +113,7 @@ public class Question {
             for(int j=0;j<binToHexGroups(bin).size();j++) {
                 System.out.print(binToHexGroups(bin).get(j).toString() + " \t ");
             }
+
             System.out.println("\n***************\n");
         }
 
