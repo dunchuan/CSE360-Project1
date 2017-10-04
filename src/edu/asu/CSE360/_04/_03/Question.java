@@ -41,7 +41,6 @@ public class Question {
     // this method is used to create a binary number
     public static String binary () {
 
-        Random randomGen = new Random();    //used to generate random number
         int binLength = getRandomNumberInRange(2,8); // binary number with length between 2-8
         StringBuilder sb=new StringBuilder();        // used to build binary number
 
@@ -67,11 +66,21 @@ public class Question {
         return hexGroups;
     }
 
+    public static Vector binFormula(Vector hexGroups){
+        Vector binFormula = new Vector();
+        int size = hexGroups.size();
+        for (int i = 0 ; i<size; i++){          //Vector element iteration
+            for (int j =0; j<4; j++) {          // iterate through individual elements
+                
+            }
+        }
+
+        return binFormula;
+    }
     // This method is used to change the String binary (from binary()) to a decimal number (int)
     public static int binToDec(String binary) {
-        int dec = Integer.parseUnsignedInt(binary, 2);
 
-        return dec;
+        return Integer.parseUnsignedInt(binary, 2);
     }
 
     // used to pad the hex groups with zeros to fill out the binary groups (groups of 4)
@@ -96,23 +105,114 @@ public class Question {
 
 
     public static String decToHex(int decimal) {
-        String hexStr = Integer.toString(decimal,16);
 
-        return hexStr;
+        return Integer.toString(decimal,16).toUpperCase();
+    }
+
+    // creates random decimal number by calling getRandomNumberInRange
+    // this method is used by generateRandomHex to create a random hex number
+    public static int generateRandomDec() {
+
+        return getRandomNumberInRange(20, 200);                      //increase top range for increased difficulty
+    }
+
+    // calls generateRandomDec to create random decimal number and converts it to hex
+    public static String generateRandomHex(int decimal){
+
+        return Integer.toHexString(decimal).toUpperCase();
+    }
+
+    public static int recursionCount(int dec) {
+        int count = 0;                              // to count recursions
+        while (dec>0) {
+            dec = dec/2;
+            count++;
+        }
+
+        return count;
+    }
+
+    public static String decToBin(int decimal) {
+        String result = ((decimal % 2 == 0) ? "0" : "1");
+
+        if (decimal == 0 || decimal == 1) {
+            return result;
+        }
+
+        return decToBin(decimal/2) + result;
+    }
+
+    public static String hexConvert(String hex) {
+
+        String strArray[] = hex.split("");
+
+        for(int i = 0; i<strArray.length; i++) {
+            switch (strArray[i]){
+                case "A":
+                    strArray[i] = "10";
+                    break;
+                case "B":
+                    strArray[i] = "11";
+                    break;
+                case "C":
+                    strArray[i] = "12";
+                    break;
+                case "D":
+                    strArray[i] = "13";
+                    break;
+                case "E":
+                    strArray[i] = "14";
+                    break;
+                case "F":
+                    strArray[i] = "15";
+                    break;
+                default:
+                    strArray[i] = strArray[i];
+            }
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < strArray.length; i++) {
+            sb.append(strArray[i]);
+        }
+
+        return sb.toString();
     }
 
     public static void main (String[] args) {
 
         for (int i = 0; i < 10; i++) {
-            String bin = binary();
-            System.out.println("Question: " + (i+1) + " \nBinary: " +bin);
-            System.out.println("Decimal: " + binToDec(bin));
-            System.out.println("Hex: " + decToHex(binToDec(bin)) + "\n");
 
-            System.out.println("Hex groups: ");
+            // Bin -> Hex testing complete
+            String bin = binary();
+            System.out.println("Question # " + (i+1) + " \nBinary: " +bin);
+            System.out.println("Step 1 (Hex groups): ");
             for(int j=0;j<binToHexGroups(bin).size();j++) {
                 System.out.print(binToHexGroups(bin).get(j).toString() + " \t ");
             }
+
+            System.out.println("\nStep 2 (Binary Formula): ");
+            System.out.println("...");
+
+            System.out.println("Step 3 (Decimal): " + binToDec(bin));
+            System.out.println("Step 4 (Hex): " + decToHex(binToDec(bin)));
+
+            System.out.println("\n");
+
+            // Hex -> Bin testing
+
+            // Random # Generation
+            int dec = generateRandomDec();
+            String hex = generateRandomHex(dec);
+
+            System.out.println("**Now Hex to Bin** ");
+            System.out.println("Hex: " + hex);
+            System.out.println("Step 1 (Convert hex): " + hexConvert(hex));
+            System.out.println("Step 2 (Provide Formula): ");
+            System.out.println("Step 3 (Decimal): " + dec);
+            System.out.println("step 4 (Number of Divisions): " + recursionCount(dec));
+            System.out.println("Step 5 (Binary): " + decToBin(dec));
 
             System.out.println("\n***************\n");
         }
