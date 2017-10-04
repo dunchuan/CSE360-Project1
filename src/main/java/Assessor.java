@@ -30,7 +30,7 @@ public class Assessor extends ItsPane implements ActionListener {
 
     private void addPanels() {
         add("0", buildPanel0());
-        add("1", buildPanel1());
+        add("1", new BooleanQuestionPane());
         add("2", buildPanel2());
         add("3", buildPanel3());
         add("4", buildPanel4());
