@@ -1,4 +1,3 @@
-package edu.asu.CSE360._04._03;
 import java.util.Random;        // creates random number
 import java.util.*;             // for vector
 
