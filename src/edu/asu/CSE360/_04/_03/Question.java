@@ -1,4 +1,5 @@
 package edu.asu.CSE360._04._03;
+import java.lang.reflect.Array;
 import java.util.Random;        // creates random number
 import java.util.*;             // for vector
 
@@ -69,9 +70,16 @@ public class Question {
     public static Vector binFormula(Vector hexGroups){
         Vector binFormula = new Vector();
         int size = hexGroups.size();
+        String binDigits;
+
         for (int i = 0 ; i<size; i++){          //Vector element iteration
             for (int j =0; j<4; j++) {          // iterate through individual elements
-                
+               binDigits = hexGroups.get(i).toString();
+               binFormula.add(binDigits.charAt(j));
+               //System.out.println("size: "+hexGroups.size());
+               //int power = (4-i)*(hexGroups.size()-i);
+               //binFormula.add(power);
+
             }
         }
 
@@ -113,7 +121,7 @@ public class Question {
     // this method is used by generateRandomHex to create a random hex number
     public static int generateRandomDec() {
 
-        return getRandomNumberInRange(20, 200);                      //increase top range for increased difficulty
+        return getRandomNumberInRange(20, 255);                      //increase top range for increased difficulty
     }
 
     // calls generateRandomDec to create random decimal number and converts it to hex
@@ -180,6 +188,32 @@ public class Question {
         return sb.toString();
     }
 
+    public static String[] hexFormula(String hex) {
+
+        String[] formula = new String[hex.length()*2];
+
+        /*
+        for (int i = 0 ; i<hex.length(); i++){              // traverse hex string
+            for (int j = 0; j<formula.length; j+=2){        // traverse formula array
+                formula[j]= Character.toString(hex.charAt(i));
+                formula[j+1] = Integer.toString(hex.length()-(i+1));
+
+            }
+
+        }
+        */
+        //     static for a 2 digit hex code
+
+        formula[0] = Character.toString(hex.charAt(0));
+        formula[2] = Character.toString(hex.charAt(1));
+
+        formula[1] = Integer.toString(hex.length()-1);
+        formula[3] = Integer.toString(hex.length()-2);
+
+
+        return formula;
+    }
+
     public static void main (String[] args) {
 
         for (int i = 0; i < 10; i++) {
@@ -192,8 +226,11 @@ public class Question {
                 System.out.print(binToHexGroups(bin).get(j).toString() + " \t ");
             }
 
-            System.out.println("\nStep 2 (Binary Formula): ");
-            System.out.println("...");
+            Vector formula;
+            formula = binFormula(binToHexGroups(bin));
+            System.out.print("\nStep 2 (Binary Formula): ");
+            System.out.println(formula.toString());
+
 
             System.out.println("Step 3 (Decimal): " + binToDec(bin));
             System.out.println("Step 4 (Hex): " + decToHex(binToDec(bin)));
@@ -209,7 +246,7 @@ public class Question {
             System.out.println("**Now Hex to Bin** ");
             System.out.println("Hex: " + hex);
             System.out.println("Step 1 (Convert hex): " + hexConvert(hex));
-            System.out.println("Step 2 (Provide Formula): ");
+            System.out.println("Step 2 (Provide Formula): " + Arrays.toString(hexFormula(hex)));
             System.out.println("Step 3 (Decimal): " + dec);
             System.out.println("step 4 (Number of Divisions): " + recursionCount(dec));
             System.out.println("Step 5 (Binary): " + decToBin(dec));
