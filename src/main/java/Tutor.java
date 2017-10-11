@@ -1,5 +1,7 @@
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.io.IOException;
 import java.net.URL;
 
@@ -14,13 +16,16 @@ import java.net.URL;
  * @author Robert Wasinger @version 1.0
  */
 
-public class Tutor extends ItsPane {
+public class Tutor extends ItsPane implements  HyperlinkListener {
     private JEditorPane editorPane = new JEditorPane();
+
 
     public Tutor() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         editorPane.setEditable(false);
+        editorPane.setContentType("text/html");
+        editorPane.addHyperlinkListener(this);
 
         JScrollPane scrollPane = new JScrollPane(editorPane);
         scrollPane.setVerticalScrollBarPolicy(
@@ -64,6 +69,18 @@ public class Tutor extends ItsPane {
         } catch (IOException e) {
             editorPane.setText("Failed loading page: " + state + ".");
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hyperlinkUpdate(HyperlinkEvent e) {
+
+        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+            try {
+                editorPane.setPage(e.getURL());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
