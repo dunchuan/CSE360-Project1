@@ -13,9 +13,15 @@ public class BooleanCircuit {
     private BooleanCircuit head = null;
     private BooleanCircuit tail = null;
     private BooleanOp operator = null;
+    private boolean isParen = false;
 
     public BooleanCircuit(String value, TreeType treeType) {
+        this(value, treeType, false);
 
+    }
+
+    public BooleanCircuit(String value, TreeType treeType, boolean isParen) {
+        this.isParen = isParen;
 
         if (treeType == TreeType.SOP) {
             String[] values = value.split(BooleanOp.OR.toString());
@@ -75,11 +81,24 @@ public class BooleanCircuit {
     }
 
     public String toString() {
-        if (type==CircuitType.BASE) {
-            return value;
-        } else {
-            return "" + head + operator + tail;
+        String strValue;
+
+        if (isParen) {
+            strValue = "(";
         }
+        else {
+            strValue = "";
+        }
+
+        if (type==CircuitType.BASE) {
+            strValue += value;
+        } else {
+            strValue += "" + head + operator + tail;
+        }
+        if (isParen) {
+            strValue += ")";
+        }
+        return  strValue;
     }
 
 
