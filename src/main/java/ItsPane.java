@@ -21,17 +21,17 @@ public abstract class ItsPane extends JPanel {
 
     }
 
-    @Override
+
     public Dimension getMaximumSize() {
        return MAX_SIZE;
     }
 
-    @Override
+
     public Dimension getMinimumSize() {
        return MIN_SIZE;
     }
 
-    @Override
+
     public Dimension getPreferredSize() {
         return MAX_SIZE;
     }

@@ -1,26 +1,54 @@
 <HTML>
 <head>
+    <style>
+        div.P2 {
+            background-color: white;
+            color: black;
+            margin: 20px 0 20px 0;
+            padding: 20px;
+        }
+    </style>
 
 </head>
 <body>
-<h1>Physics Constants</h1>
-<table>
-    <tr><td>Proton Mass:</td>
-        <td>mp</td>
-        <td>= 1.67E−27 kg</td>
-    </tr>
-    <tr>
-        <td>Electron Mass:</td>
-        <td>me</td>
-        <td>= 9.11E−31 kg</td>
-    </tr>
-    <tr>
-        <td>Nuetron Mass:</td>
-        <td>mn</td>
-        <td>= 1.67 × 10−27 kg</td>
-    </tr>
+<h1>Conversions</h1>
+<h3>Given a Binary number how do we convert to Hexadecimal,
+    <br>
+    We can use the following steps:</h3>
+<strong>Step 1: Grouping </strong>
+<p>
+    We start by creating groups of 4 from the binary number
+    <br>
+    example:
+    <br>
+    <strong>11001010</strong> => <strong> <u>1100</u> <u>1010</u> </strong>
+</p>
+<br>
+<strong>Step 2: Convert to Decimal </strong>
+<p> To convert the grouped binary numbers to decimal we multiply all the values by base of 2
+    <br>and the multiplicity of the value is the position it's located.
+    <br><u>1100</u> <u>1010</u>  =
 
-</table>
-<a href="Steps.html"><button>Next Page</button></a>
+[(2*1)<sup>3</sup>+(2*1)<sup>2</sup>+(2*0)<sup>1</sup>+(2*0)<sup>0</sup> ] [(2*1)<sup>3</sup>+
+    (2*0)<sup>2</sup>+(2*1)<sup>1</sup>+(2*0)<sup>0</sup>]
+    => [12][10]
+
+</p>
+<br>
+<strong>Step 3: Combine the resulting value to Hexadecimal </strong>
+<p>
+   the last step is converting the decimal values from the previous step to hexadecimals
+    like this<br>
+    [12][10] => <b>CA </b>
+
+
+
+</p>
+<br>
+
+
+<a href="P1.html"><button>Previous Page</button></a>
+
+<a href="P3.html"><button>Next Page</button></a>
 </body>
 </HTML>

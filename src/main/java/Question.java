@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Random;        // creates random number
 import java.util.*;             // for vector
 
@@ -108,13 +109,17 @@ public class Question {
             System.out.println("Decimal: " + binToDec(bin));
             System.out.println("Hex: " + decToHex(binToDec(bin)) + "\n");
 
+
             System.out.println("Hex groups: ");
             for(int j=0;j<binToHexGroups(bin).size();j++) {
                 System.out.print(binToHexGroups(bin).get(j).toString() + " \t ");
             }
 
             System.out.println("\n***************\n");
-        }
+
+
+
+    }
 
     }
 }
