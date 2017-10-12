@@ -2,7 +2,8 @@
 public enum BooleanOp {
     AND(""),
     OR(" + "),
-    XOR("\u2295");
+    XOR("\u2295"),
+    IGNORE("");
 
     private String value;
 

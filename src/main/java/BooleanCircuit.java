@@ -1,3 +1,9 @@
+import com.sun.deploy.util.ArrayUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.sun.tools.javac.util.List;
+
+import java.util.ArrayList;
+
 public class BooleanCircuit {
     static enum CircuitType {
         CIRCUIT,
@@ -20,21 +26,27 @@ public class BooleanCircuit {
 
     }
 
+    public BooleanCircuit(BooleanCircuit head, BooleanCircuit tail) {
+        this.head = head;
+        this.tail = tail;
+        operator = BooleanOp.IGNORE;
+    }
+
     public BooleanCircuit(String value, TreeType treeType, boolean isParen) {
         this.isParen = isParen;
 
         if (treeType == TreeType.SOP) {
-            String[] values = value.split(BooleanOp.OR.toString());
-            if( values.length > 2) {
-                head = new BooleanCircuit(values[0], treeType);
-                tail = new BooleanCircuit(value.substring(values[0].length()), treeType);
+            List<String> values = List.from(value.split("\\Q" + BooleanOp.OR.toString() + "\\E"));
+            if( values.size() > 2) {
+                head = new BooleanCircuit(values.head, treeType);
+                tail = new BooleanCircuit(value.substring(values.head.length() + 3), treeType);
                 operator = BooleanOp.OR;
                 type = CircuitType.CIRCUIT;
             } else {
-                values = value.split(BooleanOp.XOR.toString());
-                if( values.length > 2) {
-                    head = new BooleanCircuit(values[0], treeType);
-                    tail = new BooleanCircuit(value.substring(values[0].length()), treeType);
+                values = List.from(value.split("\\Q" + BooleanOp.XOR.toString() + "\\E"));
+                if( values.size() > 2) {
+                    head = new BooleanCircuit(values.head, treeType);
+                    tail = new BooleanCircuit(value.substring(values.head.length() + 3), treeType);
                     operator = BooleanOp.XOR;
                     type = CircuitType.CIRCUIT;
                 } else {
@@ -50,34 +62,6 @@ public class BooleanCircuit {
                 }
             }
         }
-
-//        if (treeType == TreeType.SOP) {
-//            String[] values = value.split(BooleanOp.OR.toString());
-//            if( values.length > 2) {
-//                head = new BooleanCircuit(values[0], treeType);
-//                tail = new BooleanCircuit(value.substring(values[0].length()), treeType);
-//                operator = BooleanOp.OR;
-//                type = CircuitType.CIRCUIT;
-//            } else {
-//                values = value.split(BooleanOp.XOR.toString());
-//                if( values.length > 2) {
-//                    head = new BooleanCircuit(values[0], treeType);
-//                    tail = new BooleanCircuit(value.substring(values[0].length()), treeType);
-//                    operator = BooleanOp.XOR;
-//                    type = CircuitType.CIRCUIT;
-//                } else {
-//                    if (value.length() > 1) {
-//                        head = new BooleanCircuit(value.substring(0, 1), treeType);
-//                        tail = new BooleanCircuit(value.substring(1), treeType);
-//                        operator = BooleanOp.AND;
-//                        type = CircuitType.CIRCUIT;
-//                    } else {
-//                        this.value = value;
-//                        type = CircuitType.BASE;
-//                    }
-//                }
-//            }
-//        }
     }
 
     public String toString() {
