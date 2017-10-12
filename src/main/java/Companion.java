@@ -8,6 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Companion Class displays an image based upon the state value of
@@ -19,7 +21,7 @@ import java.util.LinkedList;
  * @author Jason Zellers, Robert Wasinger * @version 2.0
  */
 
-public class Companion extends ItsPane implements ComponentListener {
+public class Companion extends ItsPane implements Observer {
     private JLabel label = new JLabel("Jason Zellers");
     private Image baseImage;
 
@@ -30,11 +32,11 @@ public class Companion extends ItsPane implements ComponentListener {
 
     private Thread animationThread = null;
 
+    private int internalState = 0;
 
     public Companion() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBackground(Color.WHITE);
-        addComponentListener(this);
         add(label);
     }
 
@@ -46,9 +48,14 @@ public class Companion extends ItsPane implements ComponentListener {
 
         URL imagePath = null;
         removeAll();
-        switch(state) {
+
+        if(state != 0 && imagePath == null)
+            imagePath = getClass().getResource("/happy.png");
+
+        switch(internalState) {
             default:
             case 0:
+                animation = null;
                 break;
             case 1:
                 imagePath = getClass().getResource("/happy.png");
@@ -117,25 +124,8 @@ public class Companion extends ItsPane implements ComponentListener {
         repaint();
     }
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        updateComponent();
-    }
 
-    @Override
-    public void componentMoved(ComponentEvent e) {
 
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
-    }
 
     private class AnimateHappy implements Runnable {
 
@@ -336,4 +326,42 @@ public class Companion extends ItsPane implements ComponentListener {
                 }
             }
         }
+
+    /*
+     * Observer Code
+     *
+     */
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof AssessorStatus) {
+            switch(((AssessorStatus) o).getValue()) {
+                case NEW:
+                    internalState = 2;
+                    updateComponent();
+                    break;
+                case WRONG:
+                    internalState = 4;
+                    updateComponent();
+                    break;
+                case PERFECT:
+                    internalState = 1;
+                    updateComponent();
+                    break;
+                case TROUBLE:
+                    internalState = 3;
+                    updateComponent();
+                    break;
+//                    happy
+//                    thinking
+//                    worried
+//                    sad
+            }
+
+        }
+    }
+
+
+
+
 }
