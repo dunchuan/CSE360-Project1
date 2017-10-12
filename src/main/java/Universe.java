@@ -4,6 +4,7 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.Hashtable;
 
 /**
  * The Universe Class uses the BoxLayout to align child horizontally and
@@ -49,6 +50,13 @@ public class Universe extends JFrame implements ChangeListener {
         masterPanel.add(Box.createVerticalGlue());
 
         JSlider slider = new JSlider(1, 4, 1);
+        Hashtable<Integer, JComponent> table = slider.createStandardLabels(1);
+        table.put(1, new JLabel("Numerical Systems"));
+        table.put(2, new JLabel("Boolean Logic"));
+        table.put(3, new JLabel("K-Maps"));
+        table.put(4, new JLabel("SOP"));
+        slider.setLabelTable(table);
+        slider.setPaintLabels(true);
         slider.addChangeListener(this);
         masterPanel.add(slider);
         setContentPane(masterPanel);

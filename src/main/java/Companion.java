@@ -341,7 +341,7 @@ public class Companion extends ItsPane implements Observer {
                     updateComponent();
                     break;
                 case WRONG:
-                    internalState = 3;
+                    internalState = 4;
                     updateComponent();
                     break;
                 case PERFECT:
@@ -349,7 +349,7 @@ public class Companion extends ItsPane implements Observer {
                     updateComponent();
                     break;
                 case TROUBLE:
-                    internalState = 4;
+                    internalState = 3;
                     updateComponent();
                     break;
 //                    happy

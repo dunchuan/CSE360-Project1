@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class Assessor extends ItsPane {
 
-    private JCheckBox[] checkBoxes = new JCheckBox[3];
+//    private JCheckBox[] checkBoxes = new JCheckBox[3];
 
     private CardLayout cl = new CardLayout();
 
@@ -31,9 +31,9 @@ public class Assessor extends ItsPane {
     private void addPanels() {
         add("0", buildPanel0());
         add("1", new NumericalPane(status));
-//        add("2", new NumericalPane(status));
-//        add("3", new NumericalPane(status));
-//        add("4", new NumericalPane(status));
+        add("2", new BooleanPane(status));
+        add("3", new KmapsPane(status));
+        add("4", new SopPane(status));
 
     }
 
@@ -43,10 +43,7 @@ public class Assessor extends ItsPane {
 
     @Override
     void updateComponent() {
-        if (state == 0)
-            cl.show(this, "" + 0);
-        else
-            cl.show(this, "" + 1);
+            cl.show(this, "" + state);
     }
 
     private JPanel buildPanel0() {
