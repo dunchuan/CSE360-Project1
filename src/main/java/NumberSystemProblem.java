@@ -32,11 +32,6 @@ public class NumberSystemProblem {
     private String question = "";
     private int maxSets;
 
-    public void generateBinToDecProblem() {
-        newProblem();
-        question = "Convert " + binary + " to Decimal";
-    }
-
 
     public String getQuestion() {
         return question;
@@ -50,7 +45,6 @@ public class NumberSystemProblem {
     // this method is used to create a binary number
     public NumberSystemProblem(int maxSets) {
         this.maxSets = maxSets;
-
         newProblem();
     }
 
@@ -66,6 +60,7 @@ public class NumberSystemProblem {
             sb.append(bin);
         }
         binary = sb.toString();
+        question = "Convert " + binary + " to Decimal";
     }
 
 

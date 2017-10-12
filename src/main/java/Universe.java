@@ -21,7 +21,7 @@ public class Universe extends JFrame implements ChangeListener {
     private Companion companion = new Companion();
     private Assessor assessor = new Assessor();
     private EmptyPane emptyPane = new EmptyPane();
-    private ItsPane[] panes = {tutor, companion, assessor, emptyPane};
+    private ItsPane[] panes = {tutor, assessor, companion, emptyPane};
 
     private final int BORDER_GIRTH = 10;
 
@@ -61,11 +61,11 @@ public class Universe extends JFrame implements ChangeListener {
         final Dimension PREF_DIMENSION = new Dimension(MIN_WIDTH, MIN_HEIGHT);
         setMinimumSize(PREF_DIMENSION);
         setPreferredSize(PREF_DIMENSION);
+        assessor.status.addObserver(companion);
 
         pack();
         setVisible(true);
 
-        assessor.status.addObserver(companion);
     }
 
     public static void main(String[] args) {

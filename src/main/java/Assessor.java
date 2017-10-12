@@ -1,9 +1,5 @@
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observable;
 
 import javax.swing.*;
 
@@ -17,7 +13,7 @@ import javax.swing.*;
  * @author Ian Mwangi , Robert Wasinger * @version 1.1
  */
 
-public class Assessor extends ItsPane implements ActionListener {
+public class Assessor extends ItsPane {
 
     private JCheckBox[] checkBoxes = new JCheckBox[3];
 
@@ -34,69 +30,23 @@ public class Assessor extends ItsPane implements ActionListener {
 
     private void addPanels() {
         add("0", buildPanel0());
-        add("1", new NumericalPane());
-        add("2", new NumericalPane());
-        add("3", new NumericalPane());
-        add("4", new NumericalPane());
+        add("1", new NumericalPane(status));
+//        add("2", new NumericalPane(status));
+//        add("3", new NumericalPane(status));
+//        add("4", new NumericalPane(status));
 
     }
+
+
 
 
 
     @Override
     void updateComponent() {
-        cl.show(this, "" + state);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String response = "You selected: ";
-        int defaultLength = response.length();
-        Object source = e.getSource();
-
-        switch (state) {
-            case 1:
-                if (source instanceof JComboBox) {
-                    JComboBox<String> box = (JComboBox<String>) source;
-                    response += box.getSelectedItem();
-                    JOptionPane.showMessageDialog(this, response);
-                }
-                break;
-            case 2:
-                if (source instanceof JCheckBox) {
-                    JCheckBox actionBox = (JCheckBox) source;
-                    if (actionBox.isSelected()) {
-                        for (JCheckBox box : checkBoxes) {
-                            if (box.isSelected()) {
-                                if (response.length() == defaultLength)
-                                    response += box.getText();
-                                else
-                                    response += ", " + box.getText();
-                            }
-                        }
-                        JOptionPane.showMessageDialog(this, response);
-                    }
-                }
-                break;
-            case 3:
-                if (source instanceof JButton) {
-                    JButton button = (JButton) source;
-                    response += button.getText();
-                    JOptionPane.showMessageDialog(this, response);
-                }
-                break;
-            case 4:
-                if (source instanceof JTextField) {
-                    JTextField textField = (JTextField) source;
-                    response = "You entered: " + textField.getText();
-                    JOptionPane.showMessageDialog(this, response);
-                }
-                break;
-            case 0:
-            default:
-        }
-
+        if (state == 0)
+            cl.show(this, "" + 0);
+        else
+            cl.show(this, "" + 1);
     }
 
     private JPanel buildPanel0() {
@@ -113,6 +63,59 @@ public class Assessor extends ItsPane implements ActionListener {
 
         return panel0;
     }
+
+
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        String response = "You selected: ";
+//        int defaultLength = response.length();
+//        Object source = e.getSource();
+//
+//        switch (state) {
+//            case 1:
+//                if (source instanceof JComboBox) {
+//                    JComboBox<String> box = (JComboBox<String>) source;
+//                    response += box.getSelectedItem();
+//                    JOptionPane.showMessageDialog(this, response);
+//                }
+//                break;
+//            case 2:
+//                if (source instanceof JCheckBox) {
+//                    JCheckBox actionBox = (JCheckBox) source;
+//                    if (actionBox.isSelected()) {
+//                        for (JCheckBox box : checkBoxes) {
+//                            if (box.isSelected()) {
+//                                if (response.length() == defaultLength)
+//                                    response += box.getText();
+//                                else
+//                                    response += ", " + box.getText();
+//                            }
+//                        }
+//                        JOptionPane.showMessageDialog(this, response);
+//                    }
+//                }
+//                break;
+//            case 3:
+//                if (source instanceof JButton) {
+//                    JButton button = (JButton) source;
+//                    response += button.getText();
+//                    JOptionPane.showMessageDialog(this, response);
+//                }
+//                break;
+//            case 4:
+//                if (source instanceof JTextField) {
+//                    JTextField textField = (JTextField) source;
+//                    response = "You entered: " + textField.getText();
+//                    JOptionPane.showMessageDialog(this, response);
+//                }
+//                break;
+//            case 0:
+//            default:
+//        }
+//
+//    }
+
+
 
 //    private JPanel buildPanel1() {
 //        String options[] = {"Option 1", "Option 2", "Option 3",
