@@ -8,6 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Companion Class displays an image based upon the state value of
@@ -19,7 +21,7 @@ import java.util.LinkedList;
  * @author Jason Zellers, Robert Wasinger * @version 2.0
  */
 
-public class Companion extends ItsPane implements ComponentListener {
+public class Companion extends ItsPane implements ComponentListener, Observer{
     private JLabel label = new JLabel("Jason Zellers");
     private Image baseImage;
 
@@ -136,6 +138,13 @@ public class Companion extends ItsPane implements ComponentListener {
     public void componentHidden(ComponentEvent e) {
 
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("nogified");
+        System.out.println(o);
+    }
+
 
     private class AnimateHappy implements Runnable {
 
@@ -336,4 +345,15 @@ public class Companion extends ItsPane implements ComponentListener {
                 }
             }
         }
+
+    /*
+     * Observer Code
+     *
+     */
+
+
+
+
+
+
 }

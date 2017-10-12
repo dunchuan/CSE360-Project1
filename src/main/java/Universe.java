@@ -64,6 +64,8 @@ public class Universe extends JFrame implements ChangeListener {
 
         pack();
         setVisible(true);
+
+        assessor.status.addObserver(companion);
     }
 
     public static void main(String[] args) {
