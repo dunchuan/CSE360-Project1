@@ -3,16 +3,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Bin2DecPanel extends QuestionsPane {
-    NumberSystemProblem system = new NumberSystemProblem(3);
+    NumberSystemProblem system;
 
     private ArrayList<JTextField> answerFields = new ArrayList<>();
-    AssessorStatus status;
 
-    public Bin2DecPanel(AssessorStatus status) {
+    public Bin2DecPanel(NumberSystemProblem system) {
+        this.system = system;
         setBackground(Color.WHITE);
-        this.status = status;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        add(createHeader(system.getQuestion()));
+        add(createHeader(system.getBin2DecQuestion()));
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
 
@@ -22,44 +21,51 @@ public class Bin2DecPanel extends QuestionsPane {
         for (int i = 0; i < given.length(); i++)
             panel.add(buildPrettyLabel(given.substring(i, i + 1)));
 
-        for (int i = 0; i < given.length(); i++)
-            panel.add(buildPrettyLabel("2^" + (given.length() - 1 - i)));
 
-        for (int i = 0; i < given.length(); i++)
-            panel.add(buildPrettyTextField());
+        for (int i = 0; i < given.length(); i++) {
+            panel.add(buildPrettyLabel("2^" + (given.length() - 1 - i)));
+        }
+
+        JTextField field;
+        for (int i = 0; i < given.length(); i++) {
+            field = buildPrettyTextField();
+            answerFields.add(field);
+            panel.add(field);
+        }
 
         add(panel);
     }
 
-    private JLabel buildPrettyLabel(String text) {
-        JLabel label = new JLabel(text, JLabel.CENTER);
-        label.setHorizontalTextPosition(JLabel.CENTER);
-        label.setFont(new Font("Time New Roman",Font.PLAIN, 18));
 
-        return label;
-    }
 
-    private JTextField buildPrettyTextField() {
-        JTextField textField = new JTextField();
-        textField.setHorizontalAlignment(SwingConstants.CENTER);
-        answerFields.add(textField);
-        return textField;
-    }
+    @Override
+    public boolean verify() {
+        boolean isCorrect;
 
-    public void verify() {
-        boolean correct = false;
+        int incorrect = 0;
         for (int i = 0; i < answerFields.size(); i ++) {
             JTextField field = answerFields.get(i);
-            correct = system.verifyBinToDec(field.getText(), i);
-            if (correct)
+            isCorrect = system.verifyBinToDec(field.getText(), i);
+            if (isCorrect) {
                 field.setBackground(Color.GREEN);
-            else
+            }
+            else {
                 field.setBackground(Color.RED);
+                incorrect++;
+            }
         }
-        if (correct)
-            status.setValue(ProblemStatus.PERFECT);
-        else
-            status.setValue(ProblemStatus.TROUBLE);
+        return incorrect == 0;
     }
+
+    @Override
+    boolean next() {
+        return false;
+    }
+
+    @Override
+    boolean previous() {
+        return false;
+    }
+
 
 }

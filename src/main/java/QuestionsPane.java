@@ -21,9 +21,6 @@ public abstract class QuestionsPane extends JPanel {
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
         panel.setLayout(new GridLayout(1, 3));
-        JButton prevButton = new JButton("Previous");
-        prevButton.addActionListener(listener);
-        panel.add(prevButton);
 
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(listener);
@@ -37,4 +34,24 @@ public abstract class QuestionsPane extends JPanel {
 
         return panel;
     }
+
+
+    protected JLabel buildPrettyLabel(String text) {
+        JLabel label = new JLabel(text, JLabel.CENTER);
+        label.setHorizontalTextPosition(JLabel.CENTER);
+        label.setFont(new Font("Time New Roman",Font.PLAIN, 18));
+
+        return label;
+    }
+
+    protected JTextField buildPrettyTextField() {
+        JTextField textField = new JTextField();
+        textField.setHorizontalAlignment(SwingConstants.CENTER);
+        return textField;
+    }
+
+    abstract boolean verify();
+
+    abstract boolean next();
+    abstract boolean previous();
 }

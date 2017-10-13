@@ -26,16 +26,17 @@ import java.util.*;             // for vector
 
 public class NumberSystemProblem {
 
-
-
     private String binary;
-    private String question = "";
+    private String bin2DecQuestion = "";
+    private String bin2HexQuestion = "";
     private int maxSets;
 
 
-    public String getQuestion() {
-        return question;
+    public String getBin2HexQuestion() {
+        return bin2HexQuestion;
     }
+    public String getBin2DecQuestion() { return bin2DecQuestion; }
+
     public String getGiven() {
         return binary;
     }
@@ -60,7 +61,8 @@ public class NumberSystemProblem {
             sb.append(bin);
         }
         binary = sb.toString();
-        question = "Convert " + binary + " to Decimal";
+        bin2DecQuestion= "Convert " + binary + " to Decimal.";
+        bin2HexQuestion= "Convert " + binary + " to Hexadecimal.";
     }
 
 
@@ -68,8 +70,8 @@ public class NumberSystemProblem {
         return binary;
     }
 
-    private Vector binToHexGroups() {
-        String binaryFormat = binByFour(binary);
+    private Vector<String> binToHexGroups() {
+        String binaryFormat = binByFour();
 
         Vector<String> hexGroups = new Vector<>();
         int index = 0;
@@ -94,14 +96,13 @@ public class NumberSystemProblem {
         return paddedString;
     }
 
-    private String binByFour(String binary){
+    private String binByFour(){
         if (binary.length()%4 != 0)
         {
             int pad = 4 - binary.length()%4;
             int binLength = binary.length()+pad;
             binary = leftPad(binary,binLength);           // to make binary string divisible by 4
         }
-
         return binary;
     }
 
@@ -119,13 +120,20 @@ public class NumberSystemProblem {
             System.out.println("Hex: " + bin.toHex() + "\n");
 
             System.out.println("Hex groups: ");
-            for(int j=0;j< bin.binToHexGroups().size();j++) {
-                System.out.print(bin.binToHexGroups().get(j).toString() + " \t ");
-            }
 
+            System.out.println(bin.hexGroups());
             System.out.println("\n***************\n");
         }
 
+    }
+
+    public String hexGroups() {
+        StringBuilder sb = new StringBuilder();
+        for(int j=0;j< binToHexGroups().size();j++) {
+            sb.append(binToHexGroups().get(j));
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     public boolean verifyBinToDec(String text, int index) {
@@ -145,6 +153,10 @@ public class NumberSystemProblem {
         }
 
         return result;
+    }
 
+    public boolean verifyBinToHex(String text, int index) {
+        String correctval = toHex();
+        return text.equalsIgnoreCase(correctval);
     }
 }

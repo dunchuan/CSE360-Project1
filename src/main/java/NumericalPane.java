@@ -9,22 +9,25 @@ public class NumericalPane extends QuestionsPane implements ActionListener {
     private CardLayout cl = new CardLayout();
     private JPanel questionsPanel = new JPanel();
 
+
+
+    private boolean currentCorrect = false;
+
     private int currentCard = 0;
-    ArrayList<Bin2DecPanel> questions = new ArrayList<>();
+    ArrayList<QuestionsPane> questions = new ArrayList<>();
 
     public NumericalPane(AssessorStatus status) {
         this.status = status;
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBackground(Color.WHITE);
-
         questionsPanel.setLayout(cl);
 
-        for (int i = 0; i < 10; i++)
-            questions.add(new Bin2DecPanel(status));
-
-        for (Bin2DecPanel q : questions)
-            questionsPanel.add(q);
+        for (int i = 0; i < 10; i++) {
+            NumericalProblemPanel curProb = new NumericalProblemPanel();
+            questionsPanel.add(curProb);
+            questions.add(curProb);
+        }
 
         add(questionsPanel);
         add(createNavigationPane(this));
@@ -35,20 +38,42 @@ public class NumericalPane extends QuestionsPane implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Submit")) {
-            questions.get(currentCard).verify();
+            currentCorrect = questions.get(currentCard).verify();
+            if (currentCorrect)
+                status.setValue(ProblemStatus.PERFECT);
+            else
+                status.setValue(ProblemStatus.TROUBLE);
         }
-        else if (e.getActionCommand().equals("Next")) {
-            cl.next(questionsPanel);
+        else if (e.getActionCommand().equals("Next") && currentCorrect) {
+            boolean nextStepPresent = questions.get(currentCard).next();
+            if (!nextStepPresent) {
+                cl.next(questionsPanel);
+                currentCard++;
+            }
             status.setValue(ProblemStatus.NEW);
-            currentCard++;
-            currentCard %= 10;
-        }
-            else if (e.getActionCommand().equals("Previous")) {
-            cl.previous(questionsPanel);
-            status.setValue(ProblemStatus.NEW);
-            currentCard--;
-            currentCard %= 10;
+            currentCorrect = false;
+        } else if (e.getActionCommand().equalsIgnoreCase("Next") && !currentCorrect)
+            status.setValue(ProblemStatus.WRONG);
+    }
 
-        }
+    @Override
+    boolean verify() {
+        return questions.get(currentCard).verify();
+    }
+
+    @Override
+    boolean next() {
+//        currentCard++;
+//        currentCard %= 10;
+//        return questions.get(currentCard).next();
+        return false;
+}
+
+    @Override
+    boolean previous() {
+//        currentCard--;
+//        currentCard %= 2;
+//        return questions.get(currentCard).previous();
+        return false;
     }
 }
