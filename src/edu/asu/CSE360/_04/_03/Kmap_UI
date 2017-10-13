@@ -1,0 +1,142 @@
+import java.applet.*;import javax.swing.*; 
+import java.awt.*;import java.awt.event.*;
+
+class Panel3 extends JPanel{
+	//components declaration
+	JTextField textRow,textCol;
+    JButton b;
+	Panel3(){
+		 textRow = new JTextField(2);
+		 textCol = new JTextField(2);
+		 
+		 textRow.setEditable(true);
+	     add(new JLabel("Row: ",JLabel.LEFT));add(textRow);
+	  
+	     textCol.setEditable(true);
+	     add(new JLabel("Column: ",JLabel.LEFT));add(textCol);
+	     
+	     b = new JButton("Create");   
+	     add(b);
+	}
+}
+
+class Panel4 extends JPanel{
+	JLabel textA;
+	JTextField sc;
+	Panel4(){
+		textA = new JLabel("Simplified circuit: ");
+		add(textA);
+		sc = new JTextField(10);
+		add(sc);
+		
+	}
+}
+
+class Panel5 extends JPanel{
+	JTextField o, one, two,three;
+	Panel5(){
+	o = new JTextField(2);
+	one = new JTextField(2);
+	two = new JTextField(2);
+	three = new JTextField(2);
+	add(o);
+	add(one);
+	add(two);
+	add(three);
+	}
+}
+class Panel6 extends JPanel{
+	JTextField o1, one1, two1,three1;
+	Panel6(){
+	o1 = new JTextField(2);
+	one1 = new JTextField(2);
+	two1 = new JTextField(2);
+	three1 = new JTextField(2);
+	add(o1);
+	add(one1);
+	add(two1);
+	add(three1);
+	}
+}
+
+class Panel7 extends JPanel{
+	JTextField o2, one2, two2,three2;
+	Panel7(){
+	o2 = new JTextField(2);
+	one2 = new JTextField(2);
+	two2 = new JTextField(2);
+	three2 = new JTextField(2);
+	add(o2);
+	add(one2);
+	add(two2);
+	add(three2);
+	}
+}
+
+class Panel8 extends JPanel{
+	JTextField o3, one3, two3,three3;
+	Panel8(){
+	o3 = new JTextField(2);
+	one3 = new JTextField(2);
+	two3 = new JTextField(2);
+	three3 = new JTextField(2);
+	add(o3);
+	add(one3);
+	add(two3);
+	add(three3);
+	}
+}
+
+
+public class RecTest extends Applet implements ActionListener{
+    Panel3 panel3;
+    Panel4 simplified_circuit;
+    Panel5 panel5;
+    Panel6 panel6;
+    Panel7 panel7;
+    Panel8 panel8;
+    //Panel5 panel5;
+    public void init(){
+        setSize(400,300);
+        panel3=new Panel3();
+        simplified_circuit =new Panel4();
+        panel5 = new Panel5();
+        panel6=new Panel6();
+        panel7=new Panel7();
+        panel8=new Panel8();
+        
+        
+        add(new JLabel("Here is a question of K-map (XXXXXX), input 2 numbers as Row and Column sequencely to create a table.",JLabel.CENTER));
+        add(panel3);
+        add(simplified_circuit);
+        add(panel5);
+        
+        add(simplified_circuit);
+        add(panel6);
+        add(panel7);
+        add(panel8);
+
+        panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
+        
+        simplified_circuit.setLayout(new BoxLayout(simplified_circuit, BoxLayout.PAGE_AXIS));
+
+        panel5.setLayout(new BoxLayout(panel5, BoxLayout.PAGE_AXIS));
+
+        panel6.setLayout(new BoxLayout(panel6, BoxLayout.PAGE_AXIS));
+
+        panel7.setLayout(new BoxLayout(panel7, BoxLayout.PAGE_AXIS));
+        
+        panel8.setLayout(new BoxLayout(panel8, BoxLayout.PAGE_AXIS));
+        
+        (panel3.b).addActionListener(this); 
+        
+        add(simplified_circuit);
+
+    }
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource()== (panel3.b)){
+            String r=(panel3.textRow.getText());
+            String c=(panel3.textCol.getText()); 
+        }
+    }
+}
